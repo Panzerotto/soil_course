@@ -88,3 +88,59 @@ def plot_swrc_comparison(
 
     plt.tight_layout()
     plt.show()
+
+def plot_brooks_corey(psi, theta_BC, theta_s, psi_b, lam):
+    fig, ax = plt.subplots(figsize=(12.0, 4.0))
+    ax.plot(psi, theta_BC, lw=2)
+    ax.set_xscale("log")
+    ax.set_xlabel("Suction |ψ| (kPa)")
+    ax.set_ylabel("Volumetric water content, θ (–)")
+    ax.set_ylim(0, theta_s * 1.05)
+    ax.grid(True, which="both", ls=":", alpha=0.5)
+    ax.set_title(f"Brooks–Corey  (ψ_b = {psi_b} kPa,  λ = {lam})")
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_van_genuchten(psi, theta_VG, theta_s, alpha, n_vg):
+    fig, ax = plt.subplots(figsize=(12.0, 4.0))
+    ax.plot(psi, theta_VG, lw=2, color="C1")
+    ax.set_xscale("log")
+    ax.set_xlabel("Suction |ψ| (kPa)")
+    ax.set_ylabel("Volumetric water content, θ (–)")
+    ax.set_ylim(0, theta_s * 1.05)
+    ax.grid(True, which="both", ls=":", alpha=0.5)
+    ax.set_title(f"van Genuchten  (α = {alpha} kPa⁻¹,  n = {n_vg})")
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_kosugi(psi, theta_K, theta_s, psi_m, sigma_k):
+    fig, ax = plt.subplots(figsize=(12.0, 4.0))
+    ax.plot(psi, theta_K, lw=2, color="C2")
+    ax.set_xscale("log")
+    ax.set_xlabel("Suction |ψ| (kPa)")
+    ax.set_ylabel("Volumetric water content, θ (–)")
+    ax.set_ylim(0, theta_s * 1.05)
+    ax.grid(True, which="both", ls=":", alpha=0.5)
+    ax.set_title(f"Kosugi  (ψ_m = {psi_m} kPa,  σ = {sigma_k})")
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_all_swrc(psi, theta_BC, theta_VG, theta_K, theta_s):
+    fig, ax = plt.subplots(figsize=(12.0, 4.2))
+    ax.plot(psi, theta_BC, lw=2, label="Brooks–Corey")
+    ax.plot(psi, theta_VG, lw=2, label="van Genuchten")
+    ax.plot(psi, theta_K, lw=2, label="Kosugi")
+
+    ax.set_xscale("log")
+    ax.set_xlabel("Suction |ψ| (kPa)")
+    ax.set_ylabel("Volumetric water content, θ (–)")
+    ax.set_ylim(0, theta_s * 1.05)
+    ax.grid(True, which="both", ls=":", alpha=0.5)
+    ax.legend(frameon=False)
+    ax.set_title("Same soil: model comparison")
+
+    plt.tight_layout()
+    plt.show()
