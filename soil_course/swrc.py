@@ -4,8 +4,8 @@ from scipy.special import erfc
 
 plt.rcParams['figure.dpi'] = 120
 
-# Suction range (kPa)
-psi = np.logspace(-2, 4, 800)  # 0.01 to 10,000 kPa
+def make_psi():
+    return np.logspace(-2, 4, 800)
 
 def theta_from_Se(Se, theta_r, theta_s):
     Se = np.clip(Se, 0.0, 1.0)
