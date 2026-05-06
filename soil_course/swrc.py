@@ -1,4 +1,3 @@
-%%writefile soil_physics_course/soil_physics_course/swrc.py
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.special import erfc
