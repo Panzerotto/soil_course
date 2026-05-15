@@ -6,3 +6,5 @@ build-backend = "setuptools.build_meta"
 name = "soil-course"
 version = "0.1.0"
 dependencies = ["numpy", "matplotlib", "scipy"]
+
+dependencies = ["pandas", "openpyxl", "statsmodels"]
