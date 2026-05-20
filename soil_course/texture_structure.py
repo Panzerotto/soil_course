@@ -224,3 +224,96 @@ def curve_to_triangle(d50=0.05, sigma=1.2):
     plt.show()
 
     return texture_class
+
+def interactive_texture_triangle():
+    import ipywidgets as widgets
+    from IPython.display import display
+
+    sand_slider = widgets.FloatSlider(
+        value=40,
+        min=0,
+        max=100,
+        step=1,
+        description="Sand (%)"
+    )
+
+    clay_slider = widgets.FloatSlider(
+        value=20,
+        min=0,
+        max=100,
+        step=1,
+        description="Clay (%)"
+    )
+
+    def update(sand, clay):
+        if sand + clay > 100:
+            print("Sand + clay cannot exceed 100%. Reduce one value.")
+        else:
+            plot_texture_triangle(sand=sand, clay=clay)
+
+    ui = widgets.interactive(
+        update,
+        sand=sand_slider,
+        clay=clay_slider
+    )
+
+    display(ui)
+
+def interactive_grain_curve():
+    import ipywidgets as widgets
+    from IPython.display import display
+
+    d50_slider = widgets.FloatLogSlider(
+        value=0.05,
+        base=10,
+        min=-4,
+        max=2,
+        step=0.1,
+        description="d50"
+    )
+
+    sigma_slider = widgets.FloatSlider(
+        value=1.2,
+        min=0.2,
+        max=3.0,
+        step=0.1,
+        description="sigma"
+    )
+
+    ui = widgets.interactive(
+        plot_grain_curve,
+        d50=d50_slider,
+        sigma=sigma_slider
+    )
+
+    display(ui)
+
+def interactive_curve_to_triangle():
+    import ipywidgets as widgets
+    from IPython.display import display
+
+    d50_slider = widgets.FloatLogSlider(
+        value=0.05,
+        base=10,
+        min=-4,
+        max=2,
+        step=0.1,
+        description="d50"
+    )
+
+    sigma_slider = widgets.FloatSlider(
+        value=1.2,
+        min=0.2,
+        max=3.0,
+        step=0.1,
+        description="sigma"
+    )
+
+    ui = widgets.interactive(
+        curve_to_triangle,
+        d50=d50_slider,
+        sigma=sigma_slider
+    )
+
+    display(ui)
+
