@@ -103,18 +103,38 @@ def plot_texture_triangle(sand=40.0, clay=20.0, ax=None):
 
 
 def interactive_texture_triangle():
-    if not HAS_WIDGETS:
-        print("ipywidgets not installed - call plot_texture_triangle(sand=.., clay=..) instead.")
-        return plot_texture_triangle(sand=60, clay=10)
-    sand_sl = widgets.FloatSlider(value=40, min=0, max=100, step=1, description="sand %", continuous_update=False)
-    clay_sl = widgets.FloatSlider(value=20, min=0, max=100, step=1, description="clay %", continuous_update=False)
-    def _update(sand, clay):
-        if sand + clay > 100:
-            print(f"sand + clay = {sand + clay:.0f} % > 100 %  -> impossible soil. Reduce one slider.")
-            return
-        plot_texture_triangle(sand=sand, clay=clay)
-    display(widgets.interactive(_update, sand=sand_sl, clay=clay_sl))
+    import ipywidgets as widgets
+    from IPython.display import display
 
+    sand_slider = widgets.FloatSlider(
+        value=40,
+        min=0,
+        max=100,
+        step=1,
+        description="Sand (%)"
+    )
+
+    clay_slider = widgets.FloatSlider(
+        value=20,
+        min=0,
+        max=100,
+        step=1,
+        description="Clay (%)"
+    )
+
+    def update(sand, clay):
+        if sand + clay > 100:
+            print("Sand + clay cannot exceed 100%. Reduce one value.")
+        else:
+            plot_texture_triangle(sand=sand, clay=clay)
+
+    ui = widgets.interactive(
+        update,
+        sand=sand_slider,
+        clay=clay_slider
+    )
+
+    display(ui)
 
 def percent_finer(d, d50=0.05, sigma=1.2):
     d = np.asarray(d, dtype=float)
@@ -186,13 +206,33 @@ def plot_grain_curve(d50=0.05, sigma=1.2, ax=None):
 
 
 def interactive_grain_curve():
-    if not HAS_WIDGETS:
-        print("ipywidgets not installed - call plot_grain_curve(d50=.., sigma=..) instead.")
-        return plot_grain_curve(d50=0.3, sigma=0.6)
-    logd50_sl = widgets.FloatSlider(value=np.log10(0.3), min=-3.5, max=1.3, step=0.05, description="log10 d50", continuous_update=False)
-    sigma_sl = widgets.FloatSlider(value=0.6, min=0.15, max=2.5, step=0.05, description="sigma", continuous_update=False)
-    display(widgets.interactive(lambda logd50, sigma: plot_grain_curve(d50=10.0**logd50, sigma=sigma), logd50=logd50_sl, sigma=sigma_sl))
+    import ipywidgets as widgets
+    from IPython.display import display
 
+    d50_slider = widgets.FloatLogSlider(
+        value=0.05,
+        base=10,
+        min=-4,
+        max=2,
+        step=0.1,
+        description="d50"
+    )
+
+    sigma_slider = widgets.FloatSlider(
+        value=1.2,
+        min=0.2,
+        max=3.0,
+        step=0.1,
+        description="sigma"
+    )
+
+    ui = widgets.interactive(
+        plot_grain_curve,
+        d50=d50_slider,
+        sigma=sigma_slider
+    )
+
+    display(ui)
 
 def curve_to_triangle(d50=0.05, sigma=1.2):
     info = classify_grain_curve(d50, sigma)
@@ -213,12 +253,33 @@ def curve_to_triangle(d50=0.05, sigma=1.2):
 
 
 def interactive_curve_to_triangle():
-    if not HAS_WIDGETS:
-        print("ipywidgets not installed - call curve_to_triangle(d50=.., sigma=..) instead.")
-        return curve_to_triangle(d50=0.08, sigma=1.6)
-    logd50_sl = widgets.FloatSlider(value=np.log10(0.08), min=-3.5, max=1.3, step=0.05, description="log10 d50", continuous_update=False)
-    sigma_sl = widgets.FloatSlider(value=1.6, min=0.15, max=2.5, step=0.05, description="sigma", continuous_update=False)
-    display(widgets.interactive(lambda logd50, sigma: curve_to_triangle(10.0**logd50, sigma), logd50=logd50_sl, sigma=sigma_sl))
+    import ipywidgets as widgets
+    from IPython.display import display
+
+    d50_slider = widgets.FloatLogSlider(
+        value=0.05,
+        base=10,
+        min=-4,
+        max=2,
+        step=0.1,
+        description="d50"
+    )
+
+    sigma_slider = widgets.FloatSlider(
+        value=1.2,
+        min=0.2,
+        max=3.0,
+        step=0.1,
+        description="sigma"
+    )
+
+    ui = widgets.interactive(
+        curve_to_triangle,
+        d50=d50_slider,
+        sigma=sigma_slider
+    )
+
+    display(ui)
 
 
 PACKINGS = {"dense (rhombohedral)": 0.26, "random close": 0.36, "loose (cubic)": 0.48, "card-house clay": 0.70}
