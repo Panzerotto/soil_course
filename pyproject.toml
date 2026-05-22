@@ -12,6 +12,4 @@ dependencies = [
     "pandas",
     "openpyxl",
     "statsmodels"
-    "ipywidgets",
-    "rosetta-soil"
 ]
