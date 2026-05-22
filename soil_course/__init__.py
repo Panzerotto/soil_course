@@ -5,3 +5,4 @@ from .darcy_experiment import *
 from .unsaturated_flow import *
 from .swrc import *
 from .pedotransfer_functions import *
+from .solving_richards import *
