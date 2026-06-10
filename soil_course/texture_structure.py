@@ -125,6 +125,9 @@ def plot_texture_triangle(sand=40.0, clay=20.0, ax=None):
     else:
         title = "INVALID: percentages must be >= 0 and sum to 100"
     ax.set_title(title, fontsize=12)
+    ax.set_title(title, pad=25)
+
+    ax.set_ylim(-0.05, 0.95)
 
     if own_axes:
         plt.tight_layout()
