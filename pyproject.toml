@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -13,3 +13,6 @@ dependencies = [
     "openpyxl",
     "statsmodels"
 ]
+
+[tool.setuptools]
+packages = ["soil_course"]
